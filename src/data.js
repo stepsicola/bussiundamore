@@ -121,13 +121,15 @@ export const HOURS = [
   { day: "Sonntag", time: "10:00 – 22:00" },
 ];
 
+const BASE = import.meta.env.BASE_URL;
+
 export const GALLERY_ITEMS = [
-  { src: "/images/gaensekeule.webp", alt: "Gänsekeule mit Kartoffelpüree, Möhren und Röstzwiebeln" },
-  { src: "/images/bowl_quinoa.webp", alt: "Quinoa Bowl mit Avocado, Edamame und Tahini-Dressing" },
-  { src: "/images/interieur.webp", alt: "Innenraum mit Marmortischen und schwarzen Holzstühlen" },
-  { src: "/images/burrata.webp", alt: "Burrata mit Rhabarber und Orangenöl" },
-  { src: "/images/aufschnitt.webp", alt: "Aufschnitt- und Käseplatte mit Senf und Trauben" },
-  { src: "/images/fassade_aussen.webp", alt: "Bussi & Amore von außen in der Brandenburger Straße" },
-  { src: "/images/entenkeule_rotkohl.webp", alt: "Entenkeule mit Rotkohl" },
-  { src: "/images/hauptgerichte.webp", alt: "Hauptgerichte bei Bussi & Amore" },
+  { src: `${BASE}images/gaensekeule.webp`, alt: "Gänsekeule mit Kartoffelpüree, Möhren und Röstzwiebeln" },
+  { src: `${BASE}images/bowl_quinoa.webp`, alt: "Quinoa Bowl mit Avocado, Edamame und Tahini-Dressing" },
+  { src: `${BASE}images/interieur.webp`, alt: "Innenraum mit Marmortischen und schwarzen Holzstühlen" },
+  { src: `${BASE}images/burrata.webp`, alt: "Burrata mit Rhabarber und Orangenöl" },
+  { src: `${BASE}images/aufschnitt.webp`, alt: "Aufschnitt- und Käseplatte mit Senf und Trauben" },
+  { src: `${BASE}images/fassade_aussen.webp`, alt: "Bussi & Amore von außen in der Brandenburger Straße" },
+  { src: `${BASE}images/entenkeule_rotkohl.webp`, alt: "Entenkeule mit Rotkohl" },
+  { src: `${BASE}images/hauptgerichte.webp`, alt: "Hauptgerichte bei Bussi & Amore" },
 ];

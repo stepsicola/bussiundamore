@@ -1,3 +1,5 @@
+const BASE = import.meta.env.BASE_URL;
+
 export default function Story() {
   return (
     <section className="story" id="story">
@@ -10,10 +12,10 @@ export default function Story() {
         </div>
         <div className="story-imgs">
           <div className="story-img">
-            <img src="/images/interieur.webp" alt="Das Innere von Bussi &amp; Amore — gedeckte Marmortische, schwarze Holzstühle" loading="lazy" />
+            <img src={`${BASE}images/interieur.webp`} alt="Das Innere von Bussi &amp; Amore — gedeckte Marmortische, schwarze Holzstühle" loading="lazy" />
           </div>
           <div className="story-img story-img--small">
-            <img src="/images/fassade_aussen.webp" alt="Fassade und Außenterrasse von Bussi &amp; Amore in der Brandenburger Straße" loading="lazy" />
+            <img src={`${BASE}images/fassade_aussen.webp`} alt="Fassade und Außenterrasse von Bussi &amp; Amore in der Brandenburger Straße" loading="lazy" />
           </div>
         </div>
       </div>
