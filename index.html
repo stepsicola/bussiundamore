@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Bussi &amp; Amore — Slow Brunch · Potsdam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/bussi.css" />
+</head>
+
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+    integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+    integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+    integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+    crossorigin="anonymous"></script>
+  <script type="text/babel">
+    const { useState, useEffect, useMemo } = React;
+
+    // ── DATA ─────────────────────────────────────────────────────
+    const BRUNCH_MENU_CARD = {
+      price: "35",
+      includes: ["0,1l Orangensaft", "1× Kaffee-Spezialität", "Bio Eggs Benedict", "Kaiserschmarrn"],
+      addon: { name: "Prosecco 0,1l", price: "5" },
+    };
+
+    const BRUNCH_ITEMS = [
+      { name: "Bio Egg Sandwich Brioche", desc: "mit Salatbeilage", price: "14" },
+      { name: "Bio Rührei Natur", desc: "mit Salatbeilage und Sauerteigbrot", price: "12" },
+      { name: "Bio Eggs Benedict Natur", desc: "mit Salatbeilage auf Brioche", price: "15" },
+      { name: "Croissant Benedict", desc: "Prosciutto Cotto · pochiertes Bio-Ei · Hollandaise", price: "17" },
+      { name: "Grilled Cheese Sandwich", desc: "mit Salatbeilage und Pickles", price: "14" },
+      { name: "Grilled Ham & Cheese Sandwich", desc: "mit Salatbeilage und Pickles", price: "16" },
+      { name: "Grilled Cheese Pastrami Sandwich", desc: "mit Salatbeilage und Pickles", price: "18" },
+      { name: "Pastrami Trüffel auf Sauerteig", desc: "auf Sauerteig mit Salatbeilage", price: "19" },
+      { name: "Avocado und pochiertes Ei", desc: "auf Sauerteigbrot mit Salatbeilage", price: "15" },
+      { name: "Avocado und Burrata", desc: "auf Sauerteigbrot mit Salatbeilage · Crispy Chilli", price: "18" },
+      { name: "Roli's Vegan Bowl", desc: "Hummus · Salat · Quinoa · Avocado · Ponzu-Kraut", price: "19" },
+      { name: "Croissant", desc: "mit Österelli Marillenmarmelade oder Pistaziencreme", price: "6" },
+      { name: "Acai Bowl", desc: "mit frischem Obst + Erdnussbutter", price: "15" },
+      { name: "Griechischer Joghurt", desc: "Granola · frische Früchte", price: "10" },
+    ];
+
+    const BRUNCH_ADDONS = [
+      { name: "Gereifter Cheddar", price: "2" },
+      { name: "Avocado", price: "3" },
+      { name: "Pochiertes Bio-Ei", price: "3" },
+      { name: "Bacon", price: "3" },
+      { name: "Prosciutto Cotto", price: "4" },
+      { name: "Hollandaise", price: "4" },
+      { name: "Pickles", price: "4" },
+      { name: "Hausgebeizter Lachs", price: "6" },
+      { name: "Trüffel", price: "7" },
+      { name: "Spargel (saisonal)", price: "6" },
+    ];
+
+    const KLASSIKER_ITEMS = [
+      { name: "Burrata Rhabarber", desc: "Burrata · Rhabarber · Tomatensorbet", price: "18" },
+      { name: "Käsekrainer", desc: "Käsekrainer · Sauerteigbrot · Ponzu-Krautsalat", price: "15" },
+      { name: "Caesar Salad", desc: "Backhendl · Salat · Caesar Dressing · Croutons", price: "21" },
+      { name: "Bussi Salat", desc: "Wildkräutersalat · Avocado · hausgebeizter Lachs", price: "17 / 20", priceNote: "ohne / mit poch. Ei" },
+      { name: "Bärlauch Gnocchi", desc: "hausgemachtes Bärlauchpesto · Bergkäse", price: "18" },
+      { name: "Backhendl Sandwich", desc: "Backhendl · Brioche · Krautsalat · Pommes Frites", price: "21" },
+      { name: "Grammelknödel, Kraut & Crispy Chilli", desc: "Grammelknödel · Ponzu-Krautsalat · Crispy Chilli Öl", price: "22" },
+      { name: "Österelli's Spinatknödel", desc: "3 Spinatknödel · Nussbutter · Parmesan · Beilagensalat", price: "21" },
+      { name: "Österelli's Rote-Bete-Knödel", desc: "3 Rote-Bete-Knödel · Rote-Bete-Jus · Kren · Beilagensalat", price: "21" },
+      { name: "Österelli's Trüffelknödel", desc: "3 Trüffelknödel · Nussbutter · Trüffel · Beilagensalat", price: "25" },
+      { name: "Österelli's Knödel-Trio", desc: "Spinat- · Rote-Bete- · Trüffelknödel · Beilagensalat", price: "25" },
+      { name: "Backhendl, gebackene Avocado & Lachs", desc: "Sauerteigbrot", price: "38" },
+    ];
+
+    const BEILAGEN_ITEMS = [
+      { name: "Beilagensalat", price: "5" },
+      { name: "Pommes Frites", price: "7" },
+      { name: "Oliven", price: "4" },
+      { name: "Sauerteig & Brioche & Kürbiskernölbutter", price: "6" },
+      { name: "Mayo oder Ketchup", price: "1" },
+      { name: "Hausgemachte Trüffel-Mayo", price: "4" },
+      { name: "Schnittlauch-Mayo oder Sriracha-Mayo", price: "2" },
+      { name: "Hausgemachte Preiselbeere oder Kren", price: "2" },
+    ];
+
+    const SPARGEL_ITEMS = [
+      { name: "Spargelcremesuppe", desc: "Spargel weiß · Schlagobers · Croutons", price: "11" },
+      { name: "Trüffel-Spargelcremesuppe", desc: "Spargel weiß · Schlagobers · Trüffel · Croutons", price: "17" },
+      { name: "Spargel Rhabarber Salat", desc: "Spargel · Rhabarber · Wildkräuter · Buchweizen", price: "24" },
+      { name: "Spargel Cordon Bleu", desc: "Spargel · Bergkäse · Kochschinken · Erdäpfel", price: "25" },
+      { name: "Spargel, Erdäpfel & hausgemachte Hollandaise", desc: "", price: "22" },
+    ];
+
+    const SPARGEL_EXTRAS = [
+      { name: "Backhendl", price: "8" },
+      { name: "Kochschinken", price: "6" },
+      { name: "Hausgebeizter Lachs", price: "7" },
+      { name: "Halbe gebackene Avocado", price: "6" },
+    ];
+
+    const DESSERT_ITEMS = [
+      { name: "Vanilleeis, Kürbiskernöl & Kürbiskern", price: "9" },
+      { name: "Topfenknödel & Rhabarber", price: "12" },
+      { name: "Schoko Ganache & frische Baiserhaube Granola", price: "11" },
+      { name: "New York Cheesecake & Sauerkirschen", price: "7" },
+      { name: "New York Cheesecake Pistazie", price: "7" },
+    ];
+
+    const KAISERSCHMARRN = {
+      price: "17",
+      desc: "Apfelkompott · Mandel · Rosinen",
+      note: "Zubereitung ca. 25 Min",
+      addons: [
+        { name: "Eine Kugel Vanilleeis", price: "2" },
+        { name: "Sizilianische Pistaziencreme", price: "2" },
+        { name: "Sauerkirsche", price: "2" },
+      ],
+    };
+
+    const GETRAENKE_ITEMS = [
+      { name: "Flat White", desc: "Hausröstung von Bonanza, Hafermilch optional", price: "4,20" },
+      { name: "Matcha Latte", desc: "Bio Ceremonial Grade aus Uji, mit Honig", price: "5,50" },
+      { name: "Bloody Bussi", desc: "Sellerie · Kirschtomate · Tabasco · Sauerkrautsaft", price: "11" },
+      { name: "Mimosa", desc: "Frischer Orangensaft, Crémant de Loire", price: "9" },
+      { name: "Espresso Martini", desc: "Doppelter Ristretto, Vodka, Kahlúa, Tonka", price: "12" },
+      { name: "Cold Brew Tonic", desc: "24h Cold Brew, Fever Tree, Bio-Orangenzeste", price: "5,80" },
+    ];
+
+    const MENU_SECTIONS = [
+      { id: "menu-brunch", label: "Brunch" },
+      { id: "menu-klassiker", label: "Klassiker" },
+      { id: "menu-spargel", label: "Spargel" },
+      { id: "menu-dessert", label: "Dessert" },
+      { id: "menu-getraenke", label: "Getränke" },
+    ];
+
+    const HOURS = [
+      { day: "Montag", time: "10:00 – 22:00" },
+      { day: "Dienstag", time: "10:00 – 22:00" },
+      { day: "Mittwoch", time: "10:00 – 22:00" },
+      { day: "Donnerstag", time: "10:00 – 22:00" },
+      { day: "Freitag", time: "10:00 – 22:00" },
+      { day: "Samstag", time: "10:00 – 22:00" },
+      { day: "Sonntag", time: "10:00 – 22:00" },
+    ];
+
+    const GALLERY_ITEMS = [
+      { src: "images/gaensekeule.webp", alt: "Gänsekeule mit Kartoffelpüree, Möhren und Röstzwiebeln" },
+      { src: "images/bowl_quinoa.webp", alt: "Quinoa Bowl mit Avocado, Edamame und Tahini-Dressing" },
+      { src: "images/interieur.webp", alt: "Innenraum mit Marmortischen und schwarzen Holzstühlen" },
+      { src: "images/burrata.webp", alt: "Burrata mit Rhabarber und Orangenöl" },
+      { src: "images/aufschnitt.webp", alt: "Aufschnitt- und Käseplatte mit Senf und Trauben" },
+      { src: "images/fassade_aussen.webp", alt: "Bussi & Amore von außen in der Brandenburger Straße" },
+      { src: "images/entenkeule_rotkohl.webp", alt: "Entenkeule mit Rotkohl" },
+      { src: "images/hauptgerichte.webp", alt: "Hauptgerichte bei Bussi & Amore" },
+    ];
+
+    function Nav({ onBook }) {
+      const [scrolled, setScrolled] = useState(false);
+      const [drawerOpen, setDrawerOpen] = useState(false);
+
+      useEffect(() => {
+        const fn = () => setScrolled(window.scrollY > 30);
+        window.addEventListener("scroll", fn);
+        return () => window.removeEventListener("scroll", fn);
+      }, []);
+
+      useEffect(() => {
+        const fn = () => { if (window.innerWidth > 760) setDrawerOpen(false); };
+        window.addEventListener("resize", fn);
+        return () => window.removeEventListener("resize", fn);
+      }, []);
+
+      useEffect(() => {
+        document.body.style.overflow = drawerOpen ? "hidden" : "";
+        return () => { document.body.style.overflow = ""; };
+      }, [drawerOpen]);
+
+      const closeDrawer = () => setDrawerOpen(false);
+
+      return (
+        <>
+          <nav className={`nav ${scrolled ? "scrolled" : ""}`}>
+            <a href="#" className="nav-logo">Bussi <span className="amp">&amp;</span> Amore</a>
+            <ul className="nav-links">
+              <li><a href="#menu">Karte</a></li>
+              <li><a href="#story">Über uns</a></li>
+              <li><a href="#hours">Öffnungszeiten</a></li>
+              <li><a href="#gallery">Galerie</a></li>
+            </ul>
+            <button className="nav-cta" onClick={onBook}>Tisch buchen</button>
+            <button
+              className={`nav-hamburger ${drawerOpen ? "open" : ""}`}
+              onClick={() => setDrawerOpen(o => !o)}
+              aria-expanded={drawerOpen}
+              aria-label={drawerOpen ? "Menü schließen" : "Menü öffnen"}
+            >
+              <span className="bar" /><span className="bar" /><span className="bar" />
+            </button>
+          </nav>
+          <div
+            className={`nav-drawer ${drawerOpen ? "open" : ""}`}
+            style={{ transform: drawerOpen ? "translateX(0)" : "translateX(100%)" }}
+            aria-hidden={!drawerOpen}
+          >
+            <a href="#menu" className="nav-drawer-link" onClick={closeDrawer}>Karte</a>
+            <a href="#story" className="nav-drawer-link" onClick={closeDrawer}>Über uns</a>
+            <a href="#hours" className="nav-drawer-link" onClick={closeDrawer}>Öffnungszeiten</a>
+            <a href="#gallery" className="nav-drawer-link" onClick={closeDrawer}>Galerie</a>
+            <button className="hero-btn primary nav-drawer-cta" onClick={() => { closeDrawer(); onBook(); }}>
+              <span>Tisch buchen</span><span className="arrow">→</span>
+            </button>
+          </div>
+        </>
+      );
+    }
+
+    function Hero({ onBook }) {
+      return (
+        <section className="hero">
+          <div>
+            <h1 className="hero-title">Brunch,<br />Bistro, Bar<br />&amp; gaaanz viel <em>Amore.</em></h1>
+            <div className="hero-ctas">
+              <a href="#menu" className="hero-btn primary"><span>Speisekarte ansehen</span><span className="arrow">→</span></a>
+              <button className="hero-btn secondary" onClick={onBook}><span>Tisch reservieren</span><span className="arrow">→</span></button>
+            </div>
+          </div>
+          <div className="hero-sub">
+            <div className="hero-meta">
+              <div>Adresse<strong>Brandenburger Str. 41<br />14467 Potsdam</strong></div>
+              <div>Telefon<strong>+49 331 1234 5678</strong></div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Marquee() {
+      const items = ["Cornetti aus eigener Backstube", "Eier vom Hof Pohl", "Hafermilch ohne Aufpreis", "Hausgerösteter Espresso", "Burrata aus Apulien", "Hundefreundlich"];
+      const loop = [...items, ...items];
+      return (
+        <div className="marquee" aria-hidden="true">
+          <div className="marquee-track">
+            {loop.map((t, i) => (
+              <React.Fragment key={i}><span>{t}</span><span className="sep">✻</span></React.Fragment>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function useScrollSpy() {
+      const [active, setActive] = useState("menu-brunch");
+      useEffect(() => {
+        const handler = () => {
+          const offset = 130;
+          let found = MENU_SECTIONS[0].id;
+          for (const { id } of MENU_SECTIONS) {
+            const el = document.getElementById(id);
+            if (!el) continue;
+            if (el.getBoundingClientRect().top <= offset) found = id;
+          }
+          setActive(found);
+        };
+        window.addEventListener("scroll", handler, { passive: true });
+        handler();
+        return () => window.removeEventListener("scroll", handler);
+      }, []);
+      return active;
+    }
+
+    function MenuItem({ item, i }) {
+      return (
+        <div className="menu-item" style={{ animation: `fadeUp .4s ${i * 0.03}s both` }}>
+          <div className="menu-item-top">
+            <div className="menu-item-name">{item.name}</div>
+            <div className="menu-item-price">
+              {item.price} €
+              {item.priceNote && <span className="menu-item-price-note">{item.priceNote}</span>}
+            </div>
+          </div>
+          {item.desc && <div className="menu-item-desc">{item.desc}</div>}
+        </div>
+      );
+    }
+
+    function BrunchSection() {
+      return (
+        <>
+          <div className="brunch-menu-card">
+            <div>
+              <div className="brunch-menu-card-title">Brunch Menü</div>
+              <div className="brunch-menu-card-includes">{BRUNCH_MENU_CARD.includes.join(" · ")}</div>
+            </div>
+            <div className="brunch-menu-card-price">{BRUNCH_MENU_CARD.price} €</div>
+            <div className="brunch-menu-card-addon">
+              + {BRUNCH_MENU_CARD.addon.name} · {BRUNCH_MENU_CARD.addon.price} €
+            </div>
+          </div>
+          <div className="menu-list">
+            {BRUNCH_ITEMS.map((item, i) => <MenuItem key={item.name} item={item} i={i} />)}
+          </div>
+          <div className="addons-box">
+            <div className="addons-box-title">Extras · zu jedem Brunchgericht</div>
+            <div className="addons-grid">
+              {BRUNCH_ADDONS.map(a => (
+                <div key={a.name} className="addon-row">
+                  <span className="addon-name">{a.name}</span>
+                  <span className="addon-price">+ {a.price} €</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      );
+    }
+
+    function KlassikerSection() {
+      return (
+        <>
+          <div className="menu-list">
+            {KLASSIKER_ITEMS.map((item, i) => <MenuItem key={item.name} item={item} i={i} />)}
+          </div>
+          <div className="beilagen-section">
+            <div className="beilagen-header">Beilagen</div>
+            <div className="beilagen-list">
+              {BEILAGEN_ITEMS.map(item => (
+                <div key={item.name} className="beilagen-row">
+                  <span className="beilagen-name">{item.name}</span>
+                  <span className="beilagen-price">{item.price} €</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      );
+    }
+
+    function SpargelSection() {
+      const mainItems = SPARGEL_ITEMS.slice(0, -1);
+      const hollandaiseItem = SPARGEL_ITEMS[SPARGEL_ITEMS.length - 1];
+      return (
+        <>
+          <div className="menu-list">
+            {mainItems.map((item, i) => <MenuItem key={item.name} item={item} i={i} />)}
+            <div className="menu-item spargel-hollandaise-item" style={{ animation: `fadeUp .4s ${mainItems.length * 0.03}s both` }}>
+              <div className="menu-item-top">
+                <div className="menu-item-name">{hollandaiseItem.name}</div>
+                <div className="menu-item-price">{hollandaiseItem.price} €</div>
+              </div>
+              <div className="spargel-inline-extras">
+                {SPARGEL_EXTRAS.map(e => (
+                  <div key={e.name} className="spargel-inline-extra-row">
+                    <span>+ {e.name}</span>
+                    <span className="beilagen-price">+ {e.price} €</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    }
+
+    function DessertSection() {
+      return (
+        <>
+          <div className="menu-list">
+            {DESSERT_ITEMS.map((item, i) => <MenuItem key={item.name} item={item} i={i} />)}
+          </div>
+          <div className="kaiserschmarrn-card">
+            <div className="kaiserschmarrn-header">
+              <div className="kaiserschmarrn-title">Karamellisierter Kaiserschmarrn</div>
+              <div className="kaiserschmarrn-price">{KAISERSCHMARRN.price} €</div>
+            </div>
+            <div className="kaiserschmarrn-desc">{KAISERSCHMARRN.desc}</div>
+            <div className="kaiserschmarrn-note">{KAISERSCHMARRN.note}</div>
+            <div className="kaiserschmarrn-addons">
+              {KAISERSCHMARRN.addons.map(a => (
+                <div key={a.name} className="kaiserschmarrn-addon-item">
+                  <span>+ {a.name}</span>
+                  <strong>{a.price} €</strong>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      );
+    }
+
+    function MenuSection() {
+      const active = useScrollSpy();
+      const navRef = React.useRef(null);
+
+      React.useEffect(() => {
+        if (!navRef.current) return;
+        const btn = navRef.current.querySelector('.menu-spy-btn.active');
+        if (!btn) return;
+        const nav = navRef.current;
+        const btnLeft = btn.offsetLeft;
+        const btnWidth = btn.offsetWidth;
+        const navWidth = nav.offsetWidth;
+        nav.scrollTo({ left: btnLeft - navWidth / 2 + btnWidth / 2, behavior: 'smooth' });
+      }, [active]);
+
+      const scrollTo = (id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const top = el.getBoundingClientRect().top + window.scrollY - 110;
+        window.scrollTo({ top, behavior: "smooth" });
+      };
+
+      return (
+        <section className="section" id="menu">
+          <div className="section-head">
+            <h2 className="section-title">Die <em>Karte</em></h2>
+          </div>
+
+          <div className="menu-spy-wrap">
+            <nav className="menu-spy" ref={navRef}>
+              {MENU_SECTIONS.map(({ id, label }) => (
+                <button
+                  key={id}
+                  className={`menu-spy-btn${active === id ? " active" : ""}`}
+                  onClick={() => scrollTo(id)}
+                >
+                  {label}
+                </button>
+              ))}
+            </nav>
+          </div>
+
+          <div id="menu-brunch" className="menu-category">
+            <div className="menu-cat-header">
+              <span className="menu-cat-title">Brunch</span>
+              <span className="menu-cat-note">10–16 Uhr</span>
+            </div>
+            <BrunchSection />
+          </div>
+
+          <div id="menu-klassiker" className="menu-category">
+            <div className="menu-cat-header">
+              <span className="menu-cat-title">Bussi &amp; Amore Klassiker</span>
+            </div>
+            <KlassikerSection />
+          </div>
+
+          <div id="menu-spargel" className="menu-category">
+            <div className="menu-cat-header">
+              <span className="menu-cat-title">Beelitzer Spargel</span>
+              <span className="menu-cat-note">Saisonal</span>
+            </div>
+            <SpargelSection />
+          </div>
+
+          <div id="menu-dessert" className="menu-category">
+            <div className="menu-cat-header">
+              <span className="menu-cat-title">Dessert</span>
+            </div>
+            <DessertSection />
+          </div>
+
+          <div id="menu-getraenke" className="menu-category">
+            <div className="menu-cat-header">
+              <span className="menu-cat-title">Getränke</span>
+            </div>
+            <div className="menu-list">
+              {GETRAENKE_ITEMS.map((item, i) => <MenuItem key={item.name} item={item} i={i} />)}
+            </div>
+          </div>
+
+          <div className="menu-footer-note">
+            Für Unverträglichkeiten und Allergien sprecht unser Team jederzeit an.
+          </div>
+        </section>
+      );
+    }
+
+    function Story() {
+      return (
+        <section className="story" id="story">
+          <div className="story-grid">
+            <div>
+              <h2 className="story-title">Brunch ist eine <em>Liebeserklärung</em> an den Vormittag.</h2>
+              <p className="story-text">Bussi entstand 2021 aus dem Wunsch, einen Ort zu haben, an dem man sich Zeit nimmt. Für Sauerteig, der zweimal über Nacht ruht. Für Eier, deren Hennen wir beim Namen kennen. Für Kaffee, der mehr ist als Koffein.</p>
+              <p className="story-text">Wir kochen mit Zutaten aus Berlin und Brandenburg, backen alles selbst und freuen uns, wenn du nach dem dritten Flat White noch sitzen bleibst.</p>
+              <div className="story-sig">— Lena &amp; Tobi, Inhaber</div>
+            </div>
+            <div className="story-imgs">
+              <div className="story-img">
+                <img src="images/interieur.webp" alt="Das Innere von Bussi &amp; Amore — gedeckte Marmortische, schwarze Holzstühle" loading="lazy" />
+              </div>
+              <div className="story-img story-img--small">
+                <img src="images/fassade_aussen.webp" alt="Fassade und Außenterrasse von Bussi &amp; Amore in der Brandenburger Straße" loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function HoursSection({ onBook }) {
+      const today = new Date().getDay();
+      const todayIdx = (today + 6) % 7;
+      return (
+        <section className="hours-section" id="hours">
+          <div className="hours-grid">
+            <div>
+
+              <h2 className="section-title" style={{ marginBottom: 40, lineHeight: 1.39 }}>Wann <em>geöffnet</em></h2>
+              <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+                <table className="hours-table">
+                  <tbody>
+                    {HOURS.map((h, i) => (
+                      <tr key={h.day} className={`${i === todayIdx ? "today" : ""} ${h.closed ? "closed" : ""}`}>
+                        <td>{h.day}</td><td>{h.time}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="hours-info">
+              <h3 style={{ color: "var(--sage-dark)" }}>Täglich geöffnet.</h3>
+              <button className="btn btn-primary" style={{ marginTop: 20 }} onClick={onBook}>Jetzt reservieren →</button>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Gallery() {
+      const reelRef = React.useRef(null);
+      const drag = React.useRef({ active: false, startX: 0, scrollLeft: 0 });
+
+      const onMouseDown = (e) => {
+        drag.current = { active: true, startX: e.pageX, scrollLeft: reelRef.current.scrollLeft };
+        reelRef.current.style.cursor = 'grabbing';
+      };
+      const onMouseMove = (e) => {
+        if (!drag.current.active) return;
+        e.preventDefault();
+        reelRef.current.scrollLeft = drag.current.scrollLeft - (e.pageX - drag.current.startX);
+      };
+      const onMouseUp = () => {
+        drag.current.active = false;
+        if (reelRef.current) reelRef.current.style.cursor = 'grab';
+      };
+
+      return (
+        <section className="gallery-section" id="gallery">
+          <div className="section-head" style={{ marginBottom: 0 }}>
+            <h2 className="section-title">Bei <em>uns</em></h2>
+            <a href="#" style={{ fontFamily: "var(--mono)", fontSize: 11, letterSpacing: ".15em", textTransform: "uppercase", color: "var(--sage-dark)" }}>@bussi_und_amore ↗</a>
+          </div>
+          <div
+            className="gallery-reel"
+            ref={reelRef}
+            onMouseDown={onMouseDown}
+            onMouseMove={onMouseMove}
+            onMouseUp={onMouseUp}
+            onMouseLeave={onMouseUp}
+          >
+            <div className="gallery-reel-track">
+              {GALLERY_ITEMS.map((item, i) => (
+                <div key={i} className="gallery-reel-item">
+                  <img src={item.src} alt={item.alt} loading="lazy" draggable="false" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Footer() {
+      return (
+        <footer className="footer">
+          <div className="footer-grid">
+            <div>
+              <div className="footer-logo">Bussi <em>&amp;</em> Amore</div>
+              <div className="footer-tagline">Slow brunch · Potsdam · seit 2021</div>
+            </div>
+            <div><h4>Besuch</h4><ul><li>Brandenburger Str. 41</li><li>14467 Potsdam</li><li>+49 331 1234 5678</li></ul></div>
+            <div><h4>Hallo sagen</h4><ul><li><a href="#">ciao@bussi-amore.de</a></li><li><a href="#">Instagram</a></li><li><a href="#">Newsletter</a></li></ul></div>
+            <div><h4>Karriere</h4><ul><li><a href="#">Service (m/w/d)</a></li><li><a href="#">Köchin / Koch</a></li><li><a href="#">Aushilfe</a></li></ul></div>
+          </div>
+          <div className="footer-bottom">
+            <span>© 2026 Bussi &amp; Amore GmbH · Potsdam</span>
+            <span>Impressum · Datenschutz · AGB</span>
+          </div>
+        </footer>
+      );
+    }
+
+    function ReservationModal({ open, onClose }) {
+      const [step, setStep] = useState(0);
+      const [date, setDate] = useState(null);
+      const [time, setTime] = useState(null);
+      const [guests, setGuests] = useState(2);
+      const [name, setName] = useState("");
+      const [email, setEmail] = useState("");
+      const [notes, setNotes] = useState("");
+
+      const dates = useMemo(() => {
+        const arr = [];
+        const today = new Date();
+        for (let i = 0; i < 12; i++) {
+          const d = new Date(today);
+          d.setDate(today.getDate() + i);
+          const disabled = d.getDay() === 1;
+          arr.push({ d, label: d.toLocaleDateString("de-DE", { weekday: "short" }).slice(0, 2), day: d.getDate(), disabled, iso: d.toISOString().slice(0, 10) });
+        }
+        return arr;
+      }, [open]);
+
+      const times = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30"];
+      if (!open) return null;
+
+      const reset = () => { setStep(0); setDate(null); setTime(null); setGuests(2); setName(""); setEmail(""); setNotes(""); };
+      const close = () => { onClose(); setTimeout(reset, 300); };
+      const canNext = (step === 0 && date) || (step === 1 && time) || (step === 2 && guests > 0) || (step === 3 && name && email);
+      const stepLabels = ["Datum wählen", "Uhrzeit wählen", "Wie viele Gäste?", "Deine Daten", "Bestätigt"];
+
+      return (
+        <div className="modal-overlay" onClick={close}>
+          <div className="modal" onClick={e => e.stopPropagation()}>
+            <button className="modal-close" onClick={close} aria-label="Schließen">×</button>
+            {step < 4 && <div className="modal-steps">{[0, 1, 2, 3].map(i => <div key={i} className={`modal-step ${i < step ? "done" : i === step ? "active" : ""}`}></div>)}</div>}
+            {step < 4 && (<><div className="modal-eyebrow">Schritt {step + 1} von 4</div><h2>{stepLabels[step].split(" ").length > 1 ? <>{stepLabels[step].split(" ").slice(0, -1).join(" ")} <em>{stepLabels[step].split(" ").slice(-1)[0]}</em></> : stepLabels[step]}</h2></>)}
+            {step === 0 && <div className="date-grid">{dates.map(d => <button key={d.iso} className={`date-cell ${date?.iso === d.iso ? "selected" : ""} ${d.disabled ? "disabled" : ""}`} disabled={d.disabled} onClick={() => !d.disabled && setDate(d)}><span className="dow">{d.label}</span><span className="day">{d.day}</span></button>)}</div>}
+            {step === 1 && <div className="time-grid">{times.map(t => <button key={t} className={`time-cell ${time === t ? "selected" : ""}`} onClick={() => setTime(t)}>{t}</button>)}</div>}
+            {step === 2 && <div><div className="guests-row"><button className="guests-btn" disabled={guests <= 1} onClick={() => setGuests(g => g - 1)}>−</button><div><div className="guests-num">{guests}</div><div className="guests-label">{guests === 1 ? "Person" : "Personen"}</div></div><button className="guests-btn" disabled={guests >= 8} onClick={() => setGuests(g => g + 1)}>+</button></div><div style={{ textAlign: "center", color: "var(--text-light)", fontSize: 13, marginTop: 12 }}>Für mehr als 8 Personen bitte direkt anrufen.</div></div>}
+            {step === 3 && <div><div className="form-field"><label>Name</label><input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Vor- und Nachname" /></div><div className="form-field"><label>Email</label><input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="dich@email.de" /></div><div className="form-field"><label>Anmerkungen (optional)</label><textarea value={notes} onChange={e => setNotes(e.target.value)} placeholder="Allergien, Geburtstag, Hund …"></textarea></div></div>}
+            {step === 4 && <div className="confirmed"><div className="confirmed-check">✓</div><div className="modal-eyebrow">Reservierung bestätigt</div><h2>Bis <em>bald</em>, {name.split(" ")[0]}.</h2><div className="summary" style={{ textAlign: "left", marginTop: 24 }}><div className="summary-row"><span>Datum</span><span>{date?.d.toLocaleDateString("de-DE", { weekday: "long", day: "2-digit", month: "long" })}</span></div><div className="summary-row"><span>Uhrzeit</span><span>{time}</span></div><div className="summary-row"><span>Gäste</span><span>{guests}</span></div><div className="summary-row"><span>Name</span><span>{name}</span></div></div><p style={{ fontSize: 14, color: "var(--text-light)", lineHeight: 1.6 }}>Eine Bestätigung wurde an <strong style={{ color: "var(--bordeaux)" }}>{email}</strong> geschickt.</p><button className="btn btn-primary" style={{ marginTop: 24, width: "100%" }} onClick={close}>Schließen</button></div>}
+            {step < 4 && <div className="btn-row">{step > 0 ? <button className="btn btn-ghost" onClick={() => setStep(s => s - 1)}>← Zurück</button> : <span></span>}<button className="btn btn-primary" disabled={!canNext} onClick={() => setStep(s => s + 1)}>{step === 3 ? "Reservieren" : "Weiter →"}</button></div>}
+          </div>
+        </div>
+      );
+    }
+
+    function FloatingBookBtn({ onBook }) {
+      const [visible, setVisible] = React.useState(false);
+      React.useEffect(() => {
+        const target = document.querySelector('.hero-ctas');
+        if (!target) return;
+        const obs = new IntersectionObserver(
+          ([entry]) => setVisible(!entry.isIntersecting),
+          { threshold: 0 }
+        );
+        obs.observe(target);
+        return () => obs.disconnect();
+      }, []);
+      return (
+        <button
+          className={`fab-book${visible ? ' fab-book--visible' : ''}`}
+          onClick={onBook}
+          aria-label="Tisch reservieren"
+        >
+          <span className="fab-book-icon">♥</span>
+          <span className="fab-book-label">Tisch reservieren</span>
+        </button>
+      );
+    }
+
+    function App() {
+      const [bookOpen, setBookOpen] = useState(false);
+      return (
+        <>
+          <Nav onBook={() => setBookOpen(true)} />
+          <Hero onBook={() => setBookOpen(true)} />
+          <Marquee />
+          <MenuSection />
+          <Story />
+          <HoursSection onBook={() => setBookOpen(true)} />
+          <Gallery />
+          <Footer />
+          <ReservationModal open={bookOpen} onClose={() => setBookOpen(false)} />
+          <FloatingBookBtn onBook={() => setBookOpen(true)} />
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+
+</html>
