@@ -15,13 +15,15 @@ export default function App() {
   return (
     <>
       <Nav onBook={() => setBookOpen(true)} />
-      <Hero onBook={() => setBookOpen(true)} />
-      <Marquee />
-      <MenuSection />
-      <Story />
-      <HoursSection onBook={() => setBookOpen(true)} />
-      <Gallery />
-      <Footer />
+      <main>
+        <Hero onBook={() => setBookOpen(true)} />
+        <Marquee />
+        <MenuSection />
+        <Story />
+        <HoursSection onBook={() => setBookOpen(true)} />
+        <Gallery />
+        <Footer />
+      </main>
       <ReservationModal open={bookOpen} onClose={() => setBookOpen(false)} />
       <FloatingBookBtn onBook={() => setBookOpen(true)} />
     </>

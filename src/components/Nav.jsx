@@ -47,6 +47,7 @@ export default function Nav({ onBook }) {
         className={`nav-drawer ${drawerOpen ? 'open' : ''}`}
         style={{ transform: drawerOpen ? 'translateX(0)' : 'translateX(100%)' }}
         aria-hidden={!drawerOpen}
+        {...(!drawerOpen ? { inert: '' } : {})}
       >
         <a href="#menu" className="nav-drawer-link" onClick={closeDrawer}>Karte</a>
         <a href="#story" className="nav-drawer-link" onClick={closeDrawer}>Über uns</a>
