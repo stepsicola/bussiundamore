@@ -379,7 +379,7 @@ img {
   padding: 22px 0;
   overflow: hidden;
   white-space: nowrap;
-  border-top: 1px solid var(--bordeaux-dark);
+  border-top: 18px solid var(--cream);
   border-bottom: 1px solid var(--bordeaux-dark);
   position: relative;
   z-index: 2;
@@ -387,10 +387,12 @@ img {
 
 .marquee-track {
   display: inline-block;
-  animation: scroll 40s linear infinite;
+  animation: scroll 65s linear infinite;
   font-family: var(--serif);
   font-size: 32px;
   letter-spacing: .02em;
+  cursor: grab;
+  user-select: none;
 }
 
 .marquee-track span {
@@ -402,6 +404,7 @@ img {
   font-style: normal;
   color: var(--sage-light);
   font-size: 24px;
+  vertical-align: middle;
 }
 
 @keyframes scroll {
