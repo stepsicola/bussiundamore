@@ -1,6 +1,11 @@
+const BASE = import.meta.env.BASE_URL;
+
 export default function Hero({ onBook }) {
   return (
-    <section className="hero">
+    <section
+      className="hero"
+      style={{ backgroundImage: `url(${BASE}images/fassade_aussen.webp)` }}
+    >
       <div>
         <h1 className="hero-title">Brunch,<br />Bistro, Bar<br />&amp; gaaanz viel <em>Amore.</em></h1>
         <div className="hero-ctas">
