@@ -703,6 +703,7 @@ img {
 .hours-title {
   white-space: nowrap;
   margin-bottom: 40px;
+  text-align: center;
 }
 
 .hours-table {
