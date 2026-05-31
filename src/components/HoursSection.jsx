@@ -6,7 +6,7 @@ export default function HoursSection({ onBook }) {
   return (
     <section className="hours-section" id="hours">
       <div className="hours-inner">
-        <h2 className="section-title hours-title">Wann <em>geöffnet</em></h2>
+        <h2 className="section-title hours-title">Wann <em>geöffnet</em>?</h2>
         <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
           <table className="hours-table">
             <tbody>

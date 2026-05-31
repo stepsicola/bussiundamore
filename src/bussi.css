@@ -688,6 +688,7 @@ img {
   background: var(--cream-dark);
   position: relative;
   z-index: 2;
+  overflow-x: hidden;
 }
 
 .hours-inner {
@@ -700,8 +701,9 @@ img {
   text-align: left;
 }
 
-.hours-title {
+.section-title.hours-title {
   white-space: nowrap;
+  font-size: clamp(26px, 6vw, 52px);
   margin-bottom: 40px;
   text-align: center;
 }
@@ -1450,7 +1452,7 @@ img {
 
 @media (max-width: 900px) {
   .hours-inner {
-    text-align: left;
+    text-align: center;
   }
 
   .footer-grid {
@@ -1930,7 +1932,7 @@ img {
   font-size: clamp(28px, 4vw, 48px);
   color: var(--bordeaux);
   letter-spacing: .01em;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .menu-cat-note {
