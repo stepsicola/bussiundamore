@@ -1502,8 +1502,9 @@ img {
   /* HERO */
   .hero {
     padding: 90px var(--pad) 44px;
-    min-height: 100svh;
+    min-height: auto;
     gap: 0;
+    justify-content: flex-start;
   }
 
   .hero-title {
@@ -1513,11 +1514,12 @@ img {
   }
 
   .hero-ctas {
+    flex-direction: column;
     gap: 10px;
   }
 
   .hero-btn {
-    flex: 1;
+    width: 100%;
     justify-content: center;
     padding: 16px 18px;
     font-size: 14px;
@@ -1525,8 +1527,8 @@ img {
   }
 
   .hero-sub {
-    margin-top: 18px;
-    padding-top: 22px;
+    margin-top: clamp(24px, 5vh, 60px);
+    padding-top: 11px;
     gap: 20px;
   }
 
