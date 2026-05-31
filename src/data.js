@@ -38,7 +38,7 @@ export const KLASSIKER_ITEMS = [
   { name: "Burrata Rhabarber", desc: "Burrata · Rhabarber · Tomatensorbet", price: "18" },
   { name: "Käsekrainer", desc: "Käsekrainer · Sauerteigbrot · Ponzu-Krautsalat", price: "15" },
   { name: "Caesar Salad", desc: "Backhendl · Salat · Caesar Dressing · Croutons", price: "21" },
-  { name: "Bussi Salat", desc: "Wildkräutersalat · Avocado · hausgebeizter Lachs", price: "17 / 20", priceNote: "ohne / mit poch. Ei" },
+  { name: "Bussi Salat", desc: "Wildkräutersalat · Avocado · hausgebeizter Lachs", price: "17", addons: [{ name: "Pochiertes Ei", price: "3" }] },
   { name: "Bärlauch Gnocchi", desc: "hausgemachtes Bärlauchpesto · Bergkäse", price: "18" },
   { name: "Backhendl Sandwich", desc: "Backhendl · Brioche · Krautsalat · Pommes Frites", price: "21" },
   { name: "Grammelknödel, Kraut & Crispy Chilli", desc: "Grammelknödel · Ponzu-Krautsalat · Crispy Chilli Öl", price: "22" },

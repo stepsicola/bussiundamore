@@ -9,6 +9,16 @@ export default function MenuItem({ item, i }) {
         </div>
       </div>
       {item.desc && <div className="menu-item-desc">{item.desc}</div>}
+      {item.addons && (
+        <div className="spargel-inline-extras">
+          {item.addons.map(a => (
+            <div key={a.name} className="spargel-inline-extra-row">
+              <span>+ {a.name}</span>
+              <span className="beilagen-price">+ {a.price} €</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
