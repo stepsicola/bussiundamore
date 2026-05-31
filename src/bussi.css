@@ -225,7 +225,7 @@ img {
 .hero-title {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(70px, 12.1vw, 198px);
+  font-size: clamp(60px, 7vw, 110px);
   line-height: 1.39;
   letter-spacing: .01em;
   color: var(--cream);
