@@ -342,10 +342,33 @@ img {
   font-size: 15px;
   font-weight: 600;
   color: var(--cream);
-  color: var(--text);
   margin-top: 4px;
   text-transform: none;
   letter-spacing: 0;
+}
+
+.hero-meta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: inherit;
+  text-decoration: none;
+  transition: opacity .2s;
+}
+
+.hero-meta-link:hover {
+  opacity: 0.75;
+}
+
+.hero-meta-link .meta-arrow {
+  font-size: 13px;
+  opacity: 0.7;
+  transition: transform .2s, opacity .2s;
+}
+
+.hero-meta-link:hover .meta-arrow {
+  transform: translate(2px, -2px);
+  opacity: 1;
 }
 
 /* ============================================================
