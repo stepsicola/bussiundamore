@@ -125,9 +125,7 @@ img {
 }
 
 .nav-logo::after {
-  content: "·";
-  font-style: normal;
-  color: var(--sage-light);
+  display: none;
 }
 
 .nav-logo .amp {
