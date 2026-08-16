@@ -15,7 +15,7 @@ export default function ReservationModal({ open, onClose }) {
     for (let i = 0; i < 12; i++) {
       const d = new Date(today);
       d.setDate(today.getDate() + i);
-      const disabled = d.getDay() === 1;
+      const disabled = d.getDay() === 2 || d.getDay() === 3;
       arr.push({ d, label: d.toLocaleDateString('de-DE', { weekday: 'short' }).slice(0, 2), day: d.getDate(), disabled, iso: d.toISOString().slice(0, 10) });
     }
     return arr;

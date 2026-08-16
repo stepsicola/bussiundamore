@@ -791,16 +791,6 @@ img {
   margin-top: 40px;
 }
 
-.hours-info h3 {
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: 32px;
-  color: var(--bordeaux);
-  margin-bottom: 16px;
-  line-height: 1.1;
-  letter-spacing: .01em;
-}
-
 .hours-info p {
   margin-bottom: 14px;
 }
@@ -1704,10 +1694,6 @@ img {
 
   .hours-table td:last-child {
     font-size: 12px;
-  }
-
-  .hours-info h3 {
-    font-size: 26px;
   }
 
   .hours-info {

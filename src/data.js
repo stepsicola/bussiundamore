@@ -113,8 +113,8 @@ export const MENU_SECTIONS = [
 
 export const HOURS = [
   { day: "Montag", time: "10:00 – 22:00" },
-  { day: "Dienstag", time: "10:00 – 22:00" },
-  { day: "Mittwoch", time: "10:00 – 22:00" },
+  { day: "Dienstag", time: "Geschlossen", closed: true },
+  { day: "Mittwoch", time: "Geschlossen", closed: true },
   { day: "Donnerstag", time: "10:00 – 22:00" },
   { day: "Freitag", time: "10:00 – 22:00" },
   { day: "Samstag", time: "10:00 – 22:00" },
