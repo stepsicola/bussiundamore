@@ -121,6 +121,14 @@ export const HOURS = [
   { day: "Sonntag", time: "10:00 – 22:00" },
 ];
 
+export const CONTACT = {
+  street: "Benkertstraße 19",
+  city: "14467 Potsdam",
+  tel: "+4933188723784",
+  telDisplay: "+49 331 8872 3784",
+  mapsUrl: "https://maps.google.com/?q=Benkertstra%C3%9Fe+19,+14467+Potsdam",
+};
+
 const BASE = import.meta.env.BASE_URL;
 
 export const GALLERY_ITEMS = [
@@ -129,7 +137,7 @@ export const GALLERY_ITEMS = [
   { src: `${BASE}images/interieur.webp`, alt: "Innenraum mit Marmortischen und schwarzen Holzstühlen" },
   { src: `${BASE}images/burrata.webp`, alt: "Burrata mit Rhabarber und Orangenöl" },
   { src: `${BASE}images/aufschnitt.webp`, alt: "Aufschnitt- und Käseplatte mit Senf und Trauben" },
-  { src: `${BASE}images/fassade_aussen.webp`, alt: "Bussi & Amore von außen in der Brandenburger Straße" },
+  { src: `${BASE}images/fassade_aussen.webp`, alt: "Bussi & Amore von außen in der Benkertstraße" },
   { src: `${BASE}images/entenkeule_rotkohl.webp`, alt: "Entenkeule mit Rotkohl" },
   { src: `${BASE}images/hauptgerichte.webp`, alt: "Hauptgerichte bei Bussi & Amore" },
 ];
