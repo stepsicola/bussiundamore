@@ -8,7 +8,7 @@ export default function Story() {
           <h2 className="story-title">Brunch ist eine <em>Liebeserklärung</em> an den Vormittag.</h2>
           <p className="story-text">Bussi entstand 2021 aus dem Wunsch, einen Ort zu haben, an dem man sich Zeit nimmt. Für Sauerteig, der zweimal über Nacht ruht. Für Eier, deren Hennen wir beim Namen kennen. Für Kaffee, der mehr ist als Koffein.</p>
           <p className="story-text">Wir kochen mit Zutaten aus Berlin und Brandenburg, backen alles selbst und freuen uns, wenn du nach dem dritten Flat White noch sitzen bleibst.</p>
-          <div className="story-sig">— Lena &amp; Tobi, Inhaber</div>
+          <div className="story-sig">— Julia &amp; Andreas, Inhaber:innen</div>
         </div>
         <div className="story-imgs">
           <div className="story-img">

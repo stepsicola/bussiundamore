@@ -95,7 +95,7 @@ export const KAISERSCHMARRN = {
 };
 
 export const GETRAENKE_ITEMS = [
-  { name: "Flat White", desc: "Hausröstung von Bonanza, Hafermilch optional", price: "4,20" },
+  { name: "Flat White", desc: "Five Elephant aus Berlin, Hafermilch optional", price: "4,20" },
   { name: "Matcha Latte", desc: "Bio Ceremonial Grade aus Uji, mit Honig", price: "5,50" },
   { name: "Bloody Bussi", desc: "Sellerie · Kirschtomate · Tabasco · Sauerkrautsaft", price: "11" },
   { name: "Mimosa", desc: "Frischer Orangensaft, Crémant de Loire", price: "9" },
@@ -113,13 +113,21 @@ export const MENU_SECTIONS = [
 
 export const HOURS = [
   { day: "Montag", time: "10:00 – 22:00" },
-  { day: "Dienstag", time: "10:00 – 22:00" },
-  { day: "Mittwoch", time: "10:00 – 22:00" },
+  { day: "Dienstag", time: "Geschlossen", closed: true },
+  { day: "Mittwoch", time: "Geschlossen", closed: true },
   { day: "Donnerstag", time: "10:00 – 22:00" },
   { day: "Freitag", time: "10:00 – 22:00" },
   { day: "Samstag", time: "10:00 – 22:00" },
   { day: "Sonntag", time: "10:00 – 22:00" },
 ];
+
+export const CONTACT = {
+  street: "Benkertstraße 19",
+  city: "14467 Potsdam",
+  tel: "+4933188723784",
+  telDisplay: "+49 331 8872 3784",
+  mapsUrl: "https://maps.google.com/?q=Benkertstra%C3%9Fe+19,+14467+Potsdam",
+};
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -129,7 +137,7 @@ export const GALLERY_ITEMS = [
   { src: `${BASE}images/interieur.webp`, alt: "Innenraum mit Marmortischen und schwarzen Holzstühlen" },
   { src: `${BASE}images/burrata.webp`, alt: "Burrata mit Rhabarber und Orangenöl" },
   { src: `${BASE}images/aufschnitt.webp`, alt: "Aufschnitt- und Käseplatte mit Senf und Trauben" },
-  { src: `${BASE}images/fassade_aussen.webp`, alt: "Bussi & Amore von außen in der Brandenburger Straße" },
+  { src: `${BASE}images/fassade_aussen.webp`, alt: "Bussi & Amore von außen in der Benkertstraße" },
   { src: `${BASE}images/entenkeule_rotkohl.webp`, alt: "Entenkeule mit Rotkohl" },
   { src: `${BASE}images/hauptgerichte.webp`, alt: "Hauptgerichte bei Bussi & Amore" },
 ];

@@ -19,7 +19,6 @@ export default function HoursSection({ onBook }) {
           </table>
         </div>
         <div className="hours-info">
-          <h3>Täglich geöffnet.</h3>
           <button className="btn btn-primary" onClick={onBook}>Jetzt reservieren →</button>
         </div>
       </div>

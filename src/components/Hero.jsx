@@ -1,8 +1,6 @@
-const BASE = import.meta.env.BASE_URL;
+import { CONTACT } from '../data';
 
-const MAPS_URL = 'https://maps.google.com/?q=Brandenburger+Str.+41,+14467+Potsdam';
-const TEL = '+4933112345678';
-const TEL_DISPLAY = '+49 331 1234 5678';
+const BASE = import.meta.env.BASE_URL;
 
 export default function Hero({ onBook }) {
   return (
@@ -22,8 +20,8 @@ export default function Hero({ onBook }) {
           <div>
             Adresse
             <strong>
-              <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="hero-meta-link">
-                Brandenburger Str. 41<br />14467 Potsdam
+              <a href={CONTACT.mapsUrl} target="_blank" rel="noopener noreferrer" className="hero-meta-link">
+                {CONTACT.street}<br />{CONTACT.city}
                 <span className="meta-arrow">↗</span>
               </a>
             </strong>
@@ -31,8 +29,8 @@ export default function Hero({ onBook }) {
           <div>
             Telefon
             <strong>
-              <a href={`tel:${TEL}`} className="hero-meta-link">
-                {TEL_DISPLAY}
+              <a href={`tel:${CONTACT.tel}`} className="hero-meta-link">
+                {CONTACT.telDisplay}
                 <span className="meta-arrow">↗</span>
               </a>
             </strong>
