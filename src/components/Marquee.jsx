@@ -1,12 +1,12 @@
 import { Fragment, useRef, useEffect } from 'react';
 
 const ITEMS = [
-  "Cornetti aus eigener Backstube",
-  "Eier vom Hof Pohl",
-  "Hafermilch ohne Aufpreis",
-  "Hausgerösteter Espresso",
+  "Milch von Brodowin",
+  "Eier aus Weidehaltung",
+  "Kaffee von Five Elephant",
+  "Größtenteils regional",
   "Burrata aus Apulien",
-  "Hundefreundlich",
+  "Cornetti aus eigener Backstube",
 ];
 
 const DURATION = 65; // seconds

@@ -95,7 +95,7 @@ export const KAISERSCHMARRN = {
 };
 
 export const GETRAENKE_ITEMS = [
-  { name: "Flat White", desc: "Hausröstung von Bonanza, Hafermilch optional", price: "4,20" },
+  { name: "Flat White", desc: "Five Elephant aus Berlin, Hafermilch optional", price: "4,20" },
   { name: "Matcha Latte", desc: "Bio Ceremonial Grade aus Uji, mit Honig", price: "5,50" },
   { name: "Bloody Bussi", desc: "Sellerie · Kirschtomate · Tabasco · Sauerkrautsaft", price: "11" },
   { name: "Mimosa", desc: "Frischer Orangensaft, Crémant de Loire", price: "9" },
