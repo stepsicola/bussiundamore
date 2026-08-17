@@ -1,14 +1,25 @@
-import { useRef, useEffect } from 'react';
-import { MENU_SECTIONS, GETRAENKE_ITEMS } from '../data';
+import { useRef, useEffect, useMemo } from 'react';
+import { MENU_SECTIONS } from '../data';
+import { availableNow } from '../season';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 import BrunchSection from './BrunchSection';
 import KlassikerSection from './KlassikerSection';
 import SpargelSection from './SpargelSection';
 import DessertSection from './DessertSection';
-import MenuItem from './MenuItem';
+import GetraenkeSection from './GetraenkeSection';
 
-export default function MenuSection() {
-  const active = useScrollSpy();
+const SECTION_COMPONENTS = {
+  'menu-brunch': BrunchSection,
+  'menu-klassiker': KlassikerSection,
+  'menu-spargel': SpargelSection,
+  'menu-dessert': DessertSection,
+  'menu-getraenke': GetraenkeSection,
+};
+
+export default function MenuSection({ showTitle = true }) {
+  // Stabile Referenz — sonst baut der Scrollspy bei jedem Render neue Observer auf.
+  const sections = useMemo(() => availableNow(MENU_SECTIONS), []);
+  const active = useScrollSpy(sections);
   const navRef = useRef(null);
 
   useEffect(() => {
@@ -16,28 +27,33 @@ export default function MenuSection() {
     const btn = navRef.current.querySelector('.menu-spy-btn.active');
     if (!btn) return;
     const nav = navRef.current;
-    const btnLeft = btn.offsetLeft;
-    const btnWidth = btn.offsetWidth;
-    const navWidth = nav.offsetWidth;
-    nav.scrollTo({ left: btnLeft - navWidth / 2 + btnWidth / 2, behavior: 'smooth' });
+    nav.scrollTo({ left: btn.offsetLeft - nav.offsetWidth / 2 + btn.offsetWidth / 2, behavior: 'smooth' });
   }, [active]);
 
   const scrollTo = (id) => {
     const el = document.getElementById(id);
     if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY - 110;
-    window.scrollTo({ top, behavior: 'smooth' });
+    // Navigation und Sprungleiste überdecken den Seitenanfang — Höhen zur
+    // Laufzeit messen, damit der Offset auf Desktop und mobil stimmt.
+    const navH = document.querySelector('.nav')?.offsetHeight ?? 0;
+    const spyH = navRef.current?.parentElement?.offsetHeight ?? 0;
+    window.scrollTo({
+      top: el.getBoundingClientRect().top + window.scrollY - navH - spyH,
+      behavior: 'smooth',
+    });
   };
 
   return (
     <section className="section" id="menu">
-      <div className="section-head">
-        <h2 className="section-title">Die <em>Karte</em></h2>
-      </div>
+      {showTitle && (
+        <div className="section-head">
+          <h2 className="section-title">Die <em>Karte</em></h2>
+        </div>
+      )}
 
       <div className="menu-spy-wrap">
         <nav className="menu-spy" ref={navRef}>
-          {MENU_SECTIONS.map(({ id, label }) => (
+          {sections.map(({ id, label }) => (
             <button
               key={id}
               className={`menu-spy-btn${active === id ? ' active' : ''}`}
@@ -49,44 +65,23 @@ export default function MenuSection() {
         </nav>
       </div>
 
-      <div id="menu-brunch" className="menu-category">
-        <div className="menu-cat-header">
-          <span className="menu-cat-title">Brunch</span>
-          <span className="menu-cat-note">10–16 Uhr</span>
-        </div>
-        <BrunchSection />
+      <div className="diet-legend">
+        <span><span className="diet-badge diet-vegetarisch" aria-hidden="true">V</span> vegetarisch</span>
+        <span><span className="diet-badge diet-vegan" aria-hidden="true">VG</span> vegan</span>
       </div>
 
-      <div id="menu-klassiker" className="menu-category">
-        <div className="menu-cat-header">
-          <span className="menu-cat-title">Bussi &amp; Amore Klassiker</span>
-        </div>
-        <KlassikerSection />
-      </div>
-
-      <div id="menu-spargel" className="menu-category">
-        <div className="menu-cat-header">
-          <span className="menu-cat-title">Beelitzer Spargel</span>
-          <span className="menu-cat-note">Saisonal</span>
-        </div>
-        <SpargelSection />
-      </div>
-
-      <div id="menu-dessert" className="menu-category">
-        <div className="menu-cat-header">
-          <span className="menu-cat-title">Dessert</span>
-        </div>
-        <DessertSection />
-      </div>
-
-      <div id="menu-getraenke" className="menu-category">
-        <div className="menu-cat-header">
-          <span className="menu-cat-title">Getränke</span>
-        </div>
-        <div className="menu-list">
-          {GETRAENKE_ITEMS.map((item, i) => <MenuItem key={item.name} item={item} i={i} />)}
-        </div>
-      </div>
+      {sections.map(({ id, title, note }) => {
+        const Body = SECTION_COMPONENTS[id];
+        return (
+          <div key={id} id={id} className="menu-category">
+            <div className="menu-cat-header">
+              <span className="menu-cat-title">{title}</span>
+              {note && <span className="menu-cat-note">{note}</span>}
+            </div>
+            <Body />
+          </div>
+        );
+      })}
 
       <div className="menu-footer-note">
         Für Unverträglichkeiten und Allergien sprecht unser Team jederzeit an.

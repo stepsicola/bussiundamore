@@ -1,7 +1,10 @@
 import { BRUNCH_MENU_CARD, BRUNCH_ITEMS, BRUNCH_ADDONS } from '../data';
+import { availableNow } from '../season';
 import MenuItem from './MenuItem';
+import AddonBlock from './AddonBlock';
 
 export default function BrunchSection() {
+  const items = availableNow(BRUNCH_ITEMS);
   return (
     <>
       <div className="brunch-menu-card">
@@ -15,19 +18,9 @@ export default function BrunchSection() {
         </div>
       </div>
       <div className="menu-list">
-        {BRUNCH_ITEMS.map((item, i) => <MenuItem key={item.name} item={item} i={i} />)}
+        {items.map((item, i) => <MenuItem key={item.name} item={item} i={i} />)}
       </div>
-      <div className="addons-box">
-        <div className="addons-box-title">Extras · zu jedem Brunchgericht</div>
-        <div className="addons-grid">
-          {BRUNCH_ADDONS.map(a => (
-            <div key={a.name} className="addon-row">
-              <span className="addon-name">{a.name}</span>
-              <span className="addon-price">+ {a.price} €</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      <AddonBlock title="Extras · zu jedem Brunchgericht" items={BRUNCH_ADDONS} />
     </>
   );
 }

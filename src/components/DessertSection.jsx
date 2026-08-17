@@ -1,12 +1,17 @@
 import { DESSERT_ITEMS, KAISERSCHMARRN } from '../data';
-import MenuItem from './MenuItem';
+import { availableNow } from '../season';
+import MenuItem, { DietBadge } from './MenuItem';
 
 export default function DessertSection() {
+  const items = availableNow(DESSERT_ITEMS);
   return (
     <>
       <div className="kaiserschmarrn-card">
         <div>
-          <div className="kaiserschmarrn-title">Karamellisierter Kaiserschmarrn</div>
+          <div className="kaiserschmarrn-title">
+            Karamellisierter Kaiserschmarrn
+            <DietBadge diet={KAISERSCHMARRN.diet} />
+          </div>
           <div className="kaiserschmarrn-includes">{KAISERSCHMARRN.desc} · {KAISERSCHMARRN.note}</div>
         </div>
         <div className="kaiserschmarrn-price">{KAISERSCHMARRN.price} €</div>
@@ -17,7 +22,7 @@ export default function DessertSection() {
         </div>
       </div>
       <div className="menu-list">
-        {DESSERT_ITEMS.map((item, i) => <MenuItem key={item.name} item={item} i={i} />)}
+        {items.map((item, i) => <MenuItem key={item.name} item={item} i={i} />)}
       </div>
     </>
   );

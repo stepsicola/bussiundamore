@@ -1,23 +1,16 @@
 import { KLASSIKER_ITEMS, BEILAGEN_ITEMS } from '../data';
+import { availableNow } from '../season';
 import MenuItem from './MenuItem';
+import AddonBlock from './AddonBlock';
 
 export default function KlassikerSection() {
+  const items = availableNow(KLASSIKER_ITEMS);
   return (
     <>
       <div className="menu-list">
-        {KLASSIKER_ITEMS.map((item, i) => <MenuItem key={item.name} item={item} i={i} />)}
+        {items.map((item, i) => <MenuItem key={item.name} item={item} i={i} />)}
       </div>
-      <div className="beilagen-section">
-        <div className="beilagen-header">Beilagen</div>
-        <div className="beilagen-list">
-          {BEILAGEN_ITEMS.map(item => (
-            <div key={item.name} className="beilagen-row">
-              <span className="beilagen-name">{item.name}</span>
-              <span className="beilagen-price">{item.price} €</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      <AddonBlock title="Beilagen" items={BEILAGEN_ITEMS} plus={false} />
     </>
   );
 }

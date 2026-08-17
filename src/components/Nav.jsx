@@ -1,6 +1,20 @@
 import { useState, useEffect } from 'react';
 
-export default function Nav({ onBook }) {
+const BASE = import.meta.env.BASE_URL;
+export const KARTE_URL = `${BASE}karte/`;
+
+// Auf der Kartenseite müssen die Sprungziele zurück auf die Startseite zeigen.
+const linksFor = (page) => {
+  const home = page === 'karte' ? BASE : '';
+  return [
+    { href: page === 'karte' ? BASE : KARTE_URL, label: page === 'karte' ? 'Startseite' : 'Karte' },
+    { href: `${home}#story`, label: 'Über uns' },
+    { href: `${home}#hours`, label: 'Öffnungszeiten' },
+    { href: `${home}#gallery`, label: 'Galerie' },
+  ];
+};
+
+export default function Nav({ onBook, page = 'home' }) {
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -22,16 +36,14 @@ export default function Nav({ onBook }) {
   }, [drawerOpen]);
 
   const closeDrawer = () => setDrawerOpen(false);
+  const links = linksFor(page);
 
   return (
     <>
       <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
-        <a href="#" className="nav-logo">Bussi <span className="amp">&amp;</span> Amore</a>
+        <a href={page === 'karte' ? BASE : '#'} className="nav-logo">Bussi <span className="amp">&amp;</span> Amore</a>
         <ul className="nav-links">
-          <li><a href="#menu">Karte</a></li>
-          <li><a href="#story">Über uns</a></li>
-          <li><a href="#hours">Öffnungszeiten</a></li>
-          <li><a href="#gallery">Galerie</a></li>
+          {links.map(l => <li key={l.label}><a href={l.href}>{l.label}</a></li>)}
         </ul>
         <button className="nav-cta" onClick={onBook}>Tisch buchen</button>
         <button
@@ -49,10 +61,9 @@ export default function Nav({ onBook }) {
         aria-hidden={!drawerOpen}
         {...(!drawerOpen ? { inert: '' } : {})}
       >
-        <a href="#menu" className="nav-drawer-link" onClick={closeDrawer}>Karte</a>
-        <a href="#story" className="nav-drawer-link" onClick={closeDrawer}>Über uns</a>
-        <a href="#hours" className="nav-drawer-link" onClick={closeDrawer}>Öffnungszeiten</a>
-        <a href="#gallery" className="nav-drawer-link" onClick={closeDrawer}>Galerie</a>
+        {links.map(l => (
+          <a key={l.label} href={l.href} className="nav-drawer-link" onClick={closeDrawer}>{l.label}</a>
+        ))}
         <button className="hero-btn primary nav-drawer-cta" onClick={() => { closeDrawer(); onBook(); }}>
           <span>Tisch buchen</span><span className="arrow">→</span>
         </button>

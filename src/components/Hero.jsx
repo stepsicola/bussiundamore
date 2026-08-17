@@ -1,4 +1,5 @@
 import { CONTACT } from '../data';
+import { KARTE_URL } from './Nav';
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -11,7 +12,7 @@ export default function Hero({ onBook }) {
       <div>
         <h1 className="hero-title">Brunch,<br />Bistro, Bar<br />&amp; gaaanz viel <em>Amore.</em></h1>
         <div className="hero-ctas">
-          <a href="#menu" className="hero-btn primary"><span>Speisekarte ansehen</span><span className="arrow">→</span></a>
+          <a href={KARTE_URL} className="hero-btn primary"><span>Speisekarte ansehen</span><span className="arrow">→</span></a>
           <button className="hero-btn secondary" onClick={onBook}><span>Tisch reservieren</span><span className="arrow">→</span></button>
         </div>
       </div>
