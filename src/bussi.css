@@ -465,7 +465,9 @@ img {
   font-family: var(--serif);
   font-weight: 400;
   font-size: clamp(48px, 7vw, 110px);
-  line-height: .95;
+  /* TAN Nimbus braucht 1.39 — darunter überlappen umbrechende Zeilen,
+     weil die Glyphenbox höher ist als die Schriftgröße. Wie .hero-title. */
+  line-height: 1.39;
   letter-spacing: .01em;
   color: var(--bordeaux);
 }
@@ -1874,7 +1876,9 @@ img {
 
 .menu-spy-wrap {
   position: sticky;
-  top: 73px;
+  /* Muss der Navigationshöhe entsprechen (Desktop 81px, mobil 73px),
+     sonst verschwindet die Leiste teilweise dahinter. */
+  top: 81px;
   z-index: 20;
   margin-left: calc(-1 * var(--pad));
   margin-right: calc(-1 * var(--pad));
@@ -1929,8 +1933,16 @@ img {
    MENU CATEGORY SECTIONS
    ============================================================ */
 
+/* Gleich groß wie .menu-cat-header margin-bottom, damit die Überschrift
+   oben und unten denselben Abstand hat. */
 .menu-category {
-  padding-top: 80px;
+  padding-top: 36px;
+}
+
+/* Die erste Kategorie folgt direkt auf die Legende und braucht weniger Luft.
+   (:first-of-type greift hier nicht — das erste div ist die Sticky-Leiste.) */
+.diet-legend + .menu-category {
+  padding-top: 12px;
 }
 
 .menu-cat-header {
@@ -1947,7 +1959,8 @@ img {
   font-size: clamp(28px, 4vw, 48px);
   color: var(--bordeaux);
   letter-spacing: .01em;
-  line-height: 1.2;
+  /* "Bussi & Amore Klassiker" bricht mobil um. */
+  line-height: 1.39;
 }
 
 .menu-cat-note {
@@ -1981,7 +1994,8 @@ img {
   font-size: clamp(20px, 2.5vw, 30px);
   letter-spacing: .01em;
   margin-bottom: 8px;
-  line-height: 1;
+  /* Muss 1.39 sein — "Karamellisierter Kaiserschmarrn" bricht mobil um. */
+  line-height: 1.39;
 }
 
 .brunch-menu-card-includes,
@@ -2084,53 +2098,10 @@ img {
 }
 
 /* ============================================================
-   BEILAGEN (Untersektion Klassiker)
+   ADD-ONS AM GERICHT (zweites von zwei Add-on-Mustern)
    ============================================================ */
 
-.beilagen-section {
-  margin-top: 32px;
-  padding-top: 18px;
-}
-
-.beilagen-header {
-  font-family: var(--mono);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: .2em;
-  color: var(--text-light);
-  margin-bottom: 16px;
-}
-
-.beilagen-list {
-  border-top: 1px solid rgba(42, 32, 24, .1);
-}
-
-.beilagen-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 11px 0;
-  border-bottom: 1px solid rgba(42, 32, 24, .1);
-  gap: 20px;
-  font-size: 15px;
-}
-
-.beilagen-name {
-  color: var(--text);
-}
-
-.beilagen-price {
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--text-light);
-  white-space: nowrap;
-}
-
-/* ============================================================
-   SPARGEL INLINE EXTRAS
-   ============================================================ */
-
-.spargel-inline-extras {
+.item-addons {
   margin-top: 10px;
   padding-top: 10px;
   display: flex;
@@ -2138,7 +2109,7 @@ img {
   gap: 2px;
 }
 
-.spargel-inline-extra-row {
+.item-addon-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -2146,6 +2117,158 @@ img {
   color: var(--text-light);
   padding: 4px 0;
   gap: 16px;
+}
+
+.item-addon-price {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-light);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   KENNZEICHNUNG VEGETARISCH / VEGAN
+   ============================================================ */
+
+.diet-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 16px;
+  padding: 0 5px;
+  margin-left: 8px;
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  vertical-align: middle;
+  translate: 0 -1px;
+}
+
+.diet-vegetarisch {
+  background: #ccdcba;
+  color: #3d5a32;
+}
+
+.diet-vegan {
+  background: #5a8048;
+  color: var(--cream);
+}
+
+.diet-legend {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 18px;
+  margin-bottom: 18px;
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--text-light);
+}
+
+.diet-legend span {
+  display: inline-flex;
+  align-items: center;
+}
+
+.diet-legend .diet-badge {
+  margin-left: 0;
+  margin-right: 7px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================
+   HIGHLIGHTS (Startseite) + KARTENSEITE
+   ============================================================ */
+
+/* Das Laufband ist eine harte Kante — davor braucht es weniger Luft
+   als zwischen zwei normalen Sektionen. */
+.highlights {
+  padding-top: 56px;
+}
+
+.highlights-cta {
+  margin-top: 48px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Die Kartenseite hat ihren eigenen Kopf, die Sprungnavigation soll
+   direkt darunter sitzen. */
+.karte-header + .section {
+  padding-top: 28px;
+}
+
+.karte-header {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 130px 40px 0;
+}
+
+.karte-back {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  color: var(--text-light);
+}
+
+.karte-back:hover {
+  color: var(--bordeaux);
+}
+
+.karte-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(40px, 6vw, 72px);
+  color: var(--bordeaux);
+  line-height: 1.39;
+  margin: 8px 0 6px;
+}
+
+.karte-title em {
+  font-style: normal;
+  color: var(--sage-dark);
+}
+
+.karte-sub {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-light);
+  max-width: 46ch;
+}
+
+@media (max-width: 760px) {
+  .karte-header {
+    padding: 96px 20px 0;
+  }
+
+  .karte-sub {
+    font-size: 14px;
+  }
+
+  .highlights {
+    padding-top: 36px;
+  }
+
+  .karte-header + .section {
+    padding-top: 20px;
+  }
 }
 
 /* ============================================================
@@ -2188,23 +2311,39 @@ img {
     top: 73px;
   }
 
-  .menu-category {
-    padding-top: 56px;
+  .diet-legend {
+    gap: 14px;
+    margin-top: 14px;
+    margin-bottom: 14px;
   }
 
   .menu-cat-title {
     font-size: 28px;
   }
 
+  /* Nebeneinander bleibt auf 375px zu wenig Platz für den Text —
+     der Preis bekommt eine eigene Zeile. */
   .brunch-menu-card,
   .kaiserschmarrn-card {
     padding: 20px;
-    gap: 0 16px;
+    grid-template-columns: 1fr;
+    gap: 10px 0;
   }
 
   .brunch-menu-card-price,
   .kaiserschmarrn-price {
     font-size: 40px;
+    text-align: left;
+    /* Gestapelt braucht die Zahl eine Zeilenbox, die ihre Glyphen umfasst —
+       mit line-height 1 ragt sie 8px heraus und klebt am Text darüber. */
+    line-height: 1.39;
+  }
+
+  /* Der Zeilenabstand des Grids reicht hier schon — sonst steht unter der
+     Zahl mehr Luft als darüber. */
+  .brunch-menu-card-addon,
+  .kaiserschmarrn-addons {
+    margin-top: 0;
   }
 
   .addons-box {

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Nav from './components/Nav';
 import Hero from './components/Hero';
 import Marquee from './components/Marquee';
-import MenuSection from './components/MenuSection';
+import Highlights from './components/Highlights';
 import Story from './components/Story';
 import HoursSection from './components/HoursSection';
 import Gallery from './components/Gallery';
@@ -18,12 +18,12 @@ export default function App() {
       <main>
         <Hero onBook={() => setBookOpen(true)} />
         <Marquee />
-        <MenuSection />
+        <Highlights />
         <Story />
         <HoursSection onBook={() => setBookOpen(true)} />
         <Gallery />
-        <Footer />
       </main>
+      <Footer />
       <ReservationModal open={bookOpen} onClose={() => setBookOpen(false)} />
       <FloatingBookBtn onBook={() => setBookOpen(true)} />
     </>

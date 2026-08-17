@@ -5,20 +5,20 @@ export const BRUNCH_MENU_CARD = {
 };
 
 export const BRUNCH_ITEMS = [
-  { name: "Bio Egg Sandwich Brioche", desc: "mit Salatbeilage", price: "14" },
-  { name: "Bio Rührei Natur", desc: "mit Salatbeilage und Sauerteigbrot", price: "12" },
-  { name: "Bio Eggs Benedict Natur", desc: "mit Salatbeilage auf Brioche", price: "15" },
+  { name: "Bio Egg Sandwich Brioche", desc: "mit Salatbeilage", price: "14", diet: "vegetarisch" },
+  { name: "Bio Rührei Natur", desc: "mit Salatbeilage und Sauerteigbrot", price: "12", diet: "vegetarisch" },
+  { name: "Bio Eggs Benedict Natur", desc: "mit Salatbeilage auf Brioche", price: "15", diet: "vegetarisch" },
   { name: "Croissant Benedict", desc: "Prosciutto Cotto · pochiertes Bio-Ei · Hollandaise", price: "17" },
-  { name: "Grilled Cheese Sandwich", desc: "mit Salatbeilage und Pickles", price: "14" },
+  { name: "Grilled Cheese Sandwich", desc: "mit Salatbeilage und Pickles", price: "14", diet: "vegetarisch" },
   { name: "Grilled Ham & Cheese Sandwich", desc: "mit Salatbeilage und Pickles", price: "16" },
   { name: "Grilled Cheese Pastrami Sandwich", desc: "mit Salatbeilage und Pickles", price: "18" },
   { name: "Pastrami Trüffel auf Sauerteig", desc: "auf Sauerteig mit Salatbeilage", price: "19" },
-  { name: "Avocado und pochiertes Ei", desc: "auf Sauerteigbrot mit Salatbeilage", price: "15" },
-  { name: "Avocado und Burrata", desc: "auf Sauerteigbrot mit Salatbeilage · Crispy Chilli", price: "18" },
-  { name: "Roli's Vegan Bowl", desc: "Hummus · Salat · Quinoa · Avocado · Ponzu-Kraut", price: "19" },
-  { name: "Croissant", desc: "mit Österelli Marillenmarmelade oder Pistaziencreme", price: "6" },
-  { name: "Acai Bowl", desc: "mit frischem Obst + Erdnussbutter", price: "15" },
-  { name: "Griechischer Joghurt", desc: "Granola · frische Früchte", price: "10" },
+  { name: "Avocado und pochiertes Ei", desc: "auf Sauerteigbrot mit Salatbeilage", price: "15", diet: "vegetarisch" },
+  { name: "Avocado und Burrata", desc: "auf Sauerteigbrot mit Salatbeilage · Crispy Chilli", price: "18", diet: "vegetarisch" },
+  { name: "Roli's Vegan Bowl", desc: "Hummus · Salat · Quinoa · Avocado · Ponzu-Kraut", price: "19", diet: "vegan" },
+  { name: "Croissant", desc: "mit Österelli Marillenmarmelade oder Pistaziencreme", price: "6", diet: "vegetarisch" },
+  { name: "Acai Bowl", desc: "mit frischem Obst + Erdnussbutter", price: "15", diet: "vegetarisch" },
+  { name: "Griechischer Joghurt", desc: "Granola · frische Früchte", price: "10", diet: "vegetarisch" },
 ];
 
 export const BRUNCH_ADDONS = [
@@ -31,21 +31,21 @@ export const BRUNCH_ADDONS = [
   { name: "Pickles", price: "4" },
   { name: "Hausgebeizter Lachs", price: "6" },
   { name: "Trüffel", price: "7" },
-  { name: "Spargel (saisonal)", price: "6" },
+  { name: "Spargel", price: "6", season: "spargel" },
 ];
 
 export const KLASSIKER_ITEMS = [
-  { name: "Burrata Rhabarber", desc: "Burrata · Rhabarber · Tomatensorbet", price: "18" },
+  { name: "Burrata Rhabarber", desc: "Burrata · Rhabarber · Tomatensorbet", price: "18", diet: "vegetarisch", season: "rhabarber" },
   { name: "Käsekrainer", desc: "Käsekrainer · Sauerteigbrot · Ponzu-Krautsalat", price: "15" },
   { name: "Caesar Salad", desc: "Backhendl · Salat · Caesar Dressing · Croutons", price: "21" },
   { name: "Bussi Salat", desc: "Wildkräutersalat · Avocado · hausgebeizter Lachs", price: "17", addons: [{ name: "Pochiertes Ei", price: "3" }] },
-  { name: "Bärlauch Gnocchi", desc: "hausgemachtes Bärlauchpesto · Bergkäse", price: "18" },
+  { name: "Bärlauch Gnocchi", desc: "hausgemachtes Bärlauchpesto · Bergkäse", price: "18", diet: "vegetarisch", season: "baerlauch" },
   { name: "Backhendl Sandwich", desc: "Backhendl · Brioche · Krautsalat · Pommes Frites", price: "21" },
   { name: "Grammelknödel, Kraut & Crispy Chilli", desc: "Grammelknödel · Ponzu-Krautsalat · Crispy Chilli Öl", price: "22" },
-  { name: "Österelli's Spinatknödel", desc: "3 Spinatknödel · Nussbutter · Parmesan · Beilagensalat", price: "21" },
-  { name: "Österelli's Rote-Bete-Knödel", desc: "3 Rote-Bete-Knödel · Rote-Bete-Jus · Kren · Beilagensalat", price: "21" },
-  { name: "Österelli's Trüffelknödel", desc: "3 Trüffelknödel · Nussbutter · Trüffel · Beilagensalat", price: "25" },
-  { name: "Österelli's Knödel-Trio", desc: "Spinat- · Rote-Bete- · Trüffelknödel · Beilagensalat", price: "25" },
+  { name: "Österelli's Spinatknödel", desc: "3 Spinatknödel · Nussbutter · Parmesan · Beilagensalat", price: "21", diet: "vegetarisch" },
+  { name: "Österelli's Rote-Bete-Knödel", desc: "3 Rote-Bete-Knödel · Rote-Bete-Jus · Kren · Beilagensalat", price: "21", diet: "vegetarisch" },
+  { name: "Österelli's Trüffelknödel", desc: "3 Trüffelknödel · Nussbutter · Trüffel · Beilagensalat", price: "25", diet: "vegetarisch" },
+  { name: "Österelli's Knödel-Trio", desc: "Spinat- · Rote-Bete- · Trüffelknödel · Beilagensalat", price: "25", diet: "vegetarisch" },
   { name: "Backhendl, gebackene Avocado & Lachs", desc: "Sauerteigbrot", price: "38" },
 ];
 
@@ -61,11 +61,11 @@ export const BEILAGEN_ITEMS = [
 ];
 
 export const SPARGEL_ITEMS = [
-  { name: "Spargelcremesuppe", desc: "Spargel weiß · Schlagobers · Croutons", price: "11" },
-  { name: "Trüffel-Spargelcremesuppe", desc: "Spargel weiß · Schlagobers · Trüffel · Croutons", price: "17" },
-  { name: "Spargel Rhabarber Salat", desc: "Spargel · Rhabarber · Wildkräuter · Buchweizen", price: "24" },
+  { name: "Spargelcremesuppe", desc: "Spargel weiß · Schlagobers · Croutons", price: "11", diet: "vegetarisch" },
+  { name: "Trüffel-Spargelcremesuppe", desc: "Spargel weiß · Schlagobers · Trüffel · Croutons", price: "17", diet: "vegetarisch" },
+  { name: "Spargel Rhabarber Salat", desc: "Spargel · Rhabarber · Wildkräuter · Buchweizen", price: "24", diet: "vegetarisch" },
   { name: "Spargel Cordon Bleu", desc: "Spargel · Bergkäse · Kochschinken · Erdäpfel", price: "25" },
-  { name: "Spargel, Erdäpfel & hausgemachte Hollandaise", desc: "", price: "22" },
+  { name: "Spargel, Erdäpfel & hausgemachte Hollandaise", desc: "", price: "22", diet: "vegetarisch" },
 ];
 
 export const SPARGEL_EXTRAS = [
@@ -76,17 +76,18 @@ export const SPARGEL_EXTRAS = [
 ];
 
 export const DESSERT_ITEMS = [
-  { name: "Vanilleeis, Kürbiskernöl & Kürbiskern", price: "9" },
-  { name: "Topfenknödel & Rhabarber", price: "12" },
-  { name: "Schoko Ganache & frische Baiserhaube Granola", price: "11" },
-  { name: "New York Cheesecake & Sauerkirschen", price: "7" },
-  { name: "New York Cheesecake Pistazie", price: "7" },
+  { name: "Vanilleeis, Kürbiskernöl & Kürbiskern", price: "9", diet: "vegetarisch" },
+  { name: "Topfenknödel & Rhabarber", price: "12", diet: "vegetarisch", season: "rhabarber" },
+  { name: "Schoko Ganache & frische Baiserhaube Granola", price: "11", diet: "vegetarisch" },
+  { name: "New York Cheesecake & Sauerkirschen", price: "7", diet: "vegetarisch" },
+  { name: "New York Cheesecake Pistazie", price: "7", diet: "vegetarisch" },
 ];
 
 export const KAISERSCHMARRN = {
   price: "17",
   desc: "Apfelkompott · Mandel · Rosinen",
   note: "Zubereitung ca. 25 Min",
+  diet: "vegetarisch",
   addons: [
     { name: "Eine Kugel Vanilleeis", price: "2" },
     { name: "Sizilianische Pistaziencreme", price: "2" },
@@ -103,13 +104,31 @@ export const GETRAENKE_ITEMS = [
   { name: "Cold Brew Tonic", desc: "24h Cold Brew, Fever Tree, Bio-Orangenzeste", price: "5,80" },
 ];
 
+// label = kurzer Text in der Sprungnavigation, title = Überschrift der Kategorie.
 export const MENU_SECTIONS = [
-  { id: "menu-brunch", label: "Brunch" },
-  { id: "menu-klassiker", label: "Klassiker" },
-  { id: "menu-spargel", label: "Spargel" },
-  { id: "menu-dessert", label: "Dessert" },
-  { id: "menu-getraenke", label: "Getränke" },
+  { id: "menu-brunch", label: "Brunch", title: "Brunch", note: "10–16 Uhr" },
+  { id: "menu-klassiker", label: "Klassiker", title: "Bussi & Amore Klassiker" },
+  { id: "menu-spargel", label: "Spargel", title: "Beelitzer Spargel", note: "Saisonal", season: "spargel" },
+  { id: "menu-dessert", label: "Dessert", title: "Dessert" },
+  { id: "menu-getraenke", label: "Getränke", title: "Getränke" },
 ];
+
+// Kuratierte Auswahl für die Startseite. Verweist über den Namen auf die
+// Karte, damit Preis und Beschreibung nur an einer Stelle gepflegt werden.
+const HIGHLIGHT_NAMES = [
+  "Bio Eggs Benedict Natur",
+  "Croissant Benedict",
+  "Roli's Vegan Bowl",
+  "Pastrami Trüffel auf Sauerteig",
+  "Backhendl Sandwich",
+  "Österelli's Knödel-Trio",
+];
+
+const ALL_DISHES = [...BRUNCH_ITEMS, ...KLASSIKER_ITEMS, ...SPARGEL_ITEMS, ...DESSERT_ITEMS];
+
+export const HIGHLIGHT_ITEMS = HIGHLIGHT_NAMES
+  .map(name => ALL_DISHES.find(d => d.name === name))
+  .filter(Boolean);
 
 export const HOURS = [
   { day: "Montag", time: "10:00 – 22:00" },
